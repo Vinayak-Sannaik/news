@@ -56,7 +56,8 @@ async function fetchQuery(query) {
 // }
 async function FetchRandomNews() {
   try {
-    const apiURL = `https://newsapi.org/v2/top-headlines?country=us&pageSize=12&apiKey=${API_KEY}`;
+    const apiURL = `https://newsapi.org/v2/everything?q=Apple&pageSize=12&from=2024-02-03&sortBy=popularity&apiKey=${API_KEY}`
+    //const apiURL = `https://newsapi.org/v2/top-headlines?country=us&pageSize=12&apiKey=${API_KEY}`;
     const response = await fetch(apiURL);
 
     if (!response.ok) {
