@@ -43,15 +43,36 @@ async function fetchQuery(query) {
 }
 
 // Fetch some random news to show for first time from API
+// async function FetchRandomNews() {
+//   try {
+//     const apiURL = `https://newsapi.org/v2/top-headlines?country=us&pageSize=12&apiKey=${API_KEY}`;
+//     const response = await fetch(apiURL);
+//     const data = await response.json();
+//     return data.articles;
+//   } catch (error) {
+//     console.log("Error fetching random news", error);
+//     return [];
+//   }
+// }
 async function FetchRandomNews() {
   try {
     const apiURL = `https://newsapi.org/v2/top-headlines?country=us&pageSize=12&apiKey=${API_KEY}`;
     const response = await fetch(apiURL);
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch random news: ${response.status}`);
+    }
+
     const data = await response.json();
+
+    if (!data.articles || !Array.isArray(data.articles)) {
+      throw new Error("Unexpected response format from API");
+    }
+
     return data.articles;
   } catch (error) {
     console.log("Error fetching random news", error);
-    return [];
+    return []; // Return an empty array in case of error
   }
 }
 
